@@ -10,11 +10,17 @@
 
 > The diagram above shows how the API Gateway component you will build in this module integrates with the existing components you built previously. The grayed out items are pieces you have already implemented in previous steps.
 
-The static website you deployed in the first module already has a page configured to interact with the API you'll build in this module. The page at /ride.html has a simple map-based interface for requesting a unicorn ride. After authenticating using the /signin.html page, your users will be able to select their pickup location by clicking a point on the map and then requesting a ride by choosing the "Request Unicorn" button in the upper right corner.
+最初のモジュールでデプロイした静的Webサイトには、このモジュールで構築するAPIと対話するように構成されたページがすでにあります。 /ride.html のページには、ユニコーンを要求するためのシンプルなマップベースのインターフェースがあります。 /signin.html ページを使用して認証した後、ユーザーは地図上のポイントをクリックしてから右上の "Request Unicorn" ボタンをクリックして乗車をリクエストすることで、ピックアップ場所を選択できます。
 
-This module will focus on the steps required to build the cloud components of the API, but if you're interested in how the browser code works that calls this API, you can inspect the [ride.js](../1_StaticWebHosting/website/js/ride.js) file of the website. In this case the application uses jQuery's [ajax()](https://api.jquery.com/jQuery.ajax/) method to make the remote request.
+> The static website you deployed in the first module already has a page configured to interact with the API you'll build in this module. The page at /ride.html has a simple map-based interface for requesting a unicorn ride. After authenticating using the /signin.html page, your users will be able to select their pickup location by clicking a point on the map and then requesting a ride by choosing the "Request Unicorn" button in the upper right corner.
 
-If you want to skip ahead to the next module, you can launch one of these AWS CloudFormation templates in the Region of your choice in order to build the necessary resources automatically.
+このモジュールは、APIのクラウドコンポーネントを構築するために必要な手順に焦点を当てますが、このAPIを呼び出すブラウザコードがどのように機能するかに興味がある場合は、Webサイトの [ride.js](../1_StaticWebHosting/website/js/ride.js) ファイルを調べることができます。 この場合、アプリケーションはjQueryの [ajax()](https://api.jquery.com/jQuery.ajax/) メソッドを使用してリモートリクエストを行います。
+
+> This module will focus on the steps required to build the cloud components of the API, but if you're interested in how the browser code works that calls this API, you can inspect the [ride.js](../1_StaticWebHosting/website/js/ride.js) file of the website. In this case the application uses jQuery's [ajax()](https://api.jquery.com/jQuery.ajax/) method to make the remote request.
+
+次のモジュールにスキップしたい場合は、必要なリソースを自動的に構築するために、選択した地域でこれらのAWS CloudFormationテンプレートの1つを起動できます。
+
+> If you want to skip ahead to the next module, you can launch one of these AWS CloudFormation templates in the Region of your choice in order to build the necessary resources automatically.
 
 Region| Launch
 ------|-----
@@ -57,15 +63,36 @@ Asia Pacific (Mumbai) | [![Launch Module 4 in ap-south-1](http://docs.aws.amazon
 
 ## Implementation Instructions
 
-Each of the following sections provides an implementation overview and detailed, step-by-step instructions. The overview should provide enough context for you to complete the implementation if you're already familiar with the AWS Management Console or you want to explore the services yourself without following a walkthrough.
+以下の各セクションでは、実装の概要と詳細な手順を説明します。 すでにAWSマネジメントコンソールに精通している場合、またはウォークスルーに従わずにサービスを自分で探索したい場合は、概要に実装の完了に十分なコンテキストを記載してください。
 
-If you're using the latest version of the Chrome, Firefox, or Safari web browsers the step-by-step instructions won't be visible until you expand the section.
+> Each of the following sections provides an implementation overview and detailed, step-by-step instructions. The overview should provide enough context for you to complete the implementation if you're already familiar with the AWS Management Console or you want to explore the services yourself without following a walkthrough.
+
+最新バージョンのChrome、Firefox、またはSafari Webブラウザを使用している場合は、セクションを展開するまでステップバイステップの説明は表示されません。
+
+> If you're using the latest version of the Chrome, Firefox, or Safari web browsers the step-by-step instructions won't be visible until you expand the section.
 
 ### 1. Create a New REST API
-Use the Amazon API Gateway console to create a new API.
+
+Amazon API Gatewayコンソールを使用して新しいAPIを作成します。
+
+> Use the Amazon API Gateway console to create a new API.
 
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
+
+1. AWSマネジメントコンソールの **Services** をクリックし、Networking & Content Delivery の下の **API Gateway** を選択します。
+
+1. **Create API** をクリックします。
+
+1. **New API** を選択し、**API Name** に `WildRydes` と入力します。
+
+1. **Endpoint Type** ドロップダウンから `Edge optimized` を選択したままにします。
+
+    ***Note***: エッジ最適化は、インターネットからアクセスされるパブリックサービスに最適です。 リージョナルエンドポイントは通常、主に同じAWSリージョン内からアクセスされるAPIに使用されます。
+
+1. **Create API** を選択します。
+
+(Original)
 
 1. In the AWS Management Console, click **Services** then select **API Gateway** under Networking & Content Delivery.
 
@@ -86,13 +113,37 @@ Use the Amazon API Gateway console to create a new API.
 ### 2. Create a Cognito User Pools Authorizer
 
 #### Background
-Amazon API Gateway can use the JWT tokens returned by Cognito User Pools to authenticate API calls. In this step you'll configure an authorizer for your API to use the user pool you created in [module 2](../2_UserManagement).
+
+Amazon API Gatewayは、Cognitoユーザープールから返されたJWTトークンを使用してAPI呼び出しを認証できます。 このステップでは、[module 2](../2_UserManagement) で作成したユーザープールを使用するようにAPIの承認者を設定します。
+
+> Amazon API Gateway can use the JWT tokens returned by Cognito User Pools to authenticate API calls. In this step you'll configure an authorizer for your API to use the user pool you created in [module 2](../2_UserManagement).
 
 #### High-Level Instructions
-In the Amazon API Gateway console, create a new Cognito user pool authorizer for your API. Configure it with the details of the user pool that you created in the previous module. You can test the configuration in the console by copying and pasting the auth token presented to you after you log in via the /signin.html page of your current website.
+
+Amazon API Gatewayコンソールで、API用の新しいCognitoユーザープール承認者を作成します。 前のモジュールで作成したユーザープールの詳細を使用して構成します。 現在のWebサイトの /signin.html ページからログインした後に提示された認証トークンをコピーして貼り付けることで、コンソールで設定をテストできます。
+
+> In the Amazon API Gateway console, create a new Cognito user pool authorizer for your API. Configure it with the details of the user pool that you created in the previous module. You can test the configuration in the console by copying and pasting the auth token presented to you after you log in via the /signin.html page of your current website.
 
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
+
+1. 新しく作成したAPIの下で、**Authorizers** を選択します。
+
+1. **Create New Authorizer** を選択します。
+
+1. 承認者の名前として `WildRydes` と入力します。
+
+1. タイプとして **Cognito** を選択します。
+
+1. **Cognito User Pool** の下のRegionドロップダウンで、モジュール2でCognitoユーザープールを作成した地域を選択します（デフォルトでは現在の地域が選択されているはずです）。
+
+1. **Cognito User Pool** の入力に `WildRydes`（またはあなたがあなたのユーザープールに付けた名前）と入力してください。
+
+1. **Token Source** として `Authorization` と入力します。
+
+1. **Create** を選択します。
+
+(Original)
 
 1. Under your newly created API, choose **Authorizers**.
 
@@ -114,6 +165,22 @@ In the Amazon API Gateway console, create a new Cognito user pool authorizer for
 
 #### Verify your authorizer configuration
 
+1. 新しいブラウザタブを開き、あなたのウェブサイトのドメインの下の `/ride.html` にアクセスしてください。
+
+1. サインインページにリダイレクトされた場合は、最後のモジュールで作成したユーザーでサインインしてください。 あなたは `/ride.html` にリダイレクトされます。
+
+1. `/ride.html` の通知から認証トークンをコピーして、
+
+1. 承認者の作成が終了した前のタブに戻ります。
+
+1. 承認者のカードの下部にある **Test** をクリックします。
+
+1. ポップアップダイアログの **Authorization Token** フィールドに認証トークンを貼り付けます。
+
+1. **Test** ボタンをクリックして、レスポンスコードが200であることと、ユーザーの請求が表示されていることを確認します。
+
+(Original)
+
 1. Open a new browser tab and visit `/ride.html` under your website's domain.
 
 1. If you are redirected to the sign-in page, sign in with the user you created in the last module. You will be redirected back to `/ride.html`.
@@ -133,10 +200,49 @@ In the Amazon API Gateway console, create a new Cognito user pool authorizer for
 </p></details>
 
 ### 3. Create a new resource and method
-Create a new resource called /ride within your API. Then create a POST method for that resource and configure it to use a Lambda proxy integration backed by the RequestUnicorn function you created in the first step of this module.
+
+API内に /ride という新しいリソースを作成します。 次に、そのリソースのPOSTメソッドを作成し、このモジュールの最初のステップで作成したRequestUnicorn関数を基にしたLambdaプロキシインテグレーションを使用するように設定します。
+
+> Create a new resource called /ride within your API. Then create a POST method for that resource and configure it to use a Lambda proxy integration backed by the RequestUnicorn function you created in the first step of this module.
 
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
+
+1. 左のナビゲーションで、あなたのWildRydes APIの下にある **Resources** をクリックしてください。
+
+1. **Actions** ドロップダウンから **Create Resource** を選択します。
+
+1. **Resource Name** として `ride` と入力してください。
+
+1. **Resource Path** が `ride` に設定されていることを確認してください。
+
+1. リソースから **Enable API Gateway CORS** を選択します。
+
+1. **Create Resource** をクリックします。
+
+1. 新しく作成した `/ride` リソースを選択した状態で、**Action** ドロップダウンから **Create Method** を選択します。
+
+1. 表示された新しいドロップダウンから `POST` を選択し、チェックマークをクリックしてください。
+
+1. インテグレーションタイプとして **Lambda Function** を選択します。
+
+1. **Use Lambda Proxy integration** チェックボックスをチェックします。
+
+1. **Lambda Region** でリージョンを選択します。
+
+1. **Lambda Function** には、前のモジュールで作成した関数の名前 `RequestUnicorn` を入力してください。
+
+1. **Save** を選択します。 もし関数が存在しないというエラーが出た場合、リージョンが前のモジュールで使用したものと一致することを確認してください。
+
+1. Amazon API Gatewayにあなたの関数を呼び出す許可を与えるように促されたら、**OK** を選択します。
+
+1. **Method Request** カードを選択してください。
+
+1. **Authorization** の隣の鉛筆アイコンを選択します。
+
+1. ドロップダウンリストから WildRydes Cognito ユーザープール承認者を選択し、チェックマークアイコンをクリックします。
+
+(Original)
 
 1. In the left nav, click on **Resources** under your WildRydes API.
 
@@ -183,10 +289,25 @@ Create a new resource called /ride within your API. Then create a POST method fo
 </p></details>
 
 ### 4. Deploy Your API
-From the Amazon API Gateway console, choose Actions, Deploy API. You'll be prompted to create a new stage. You can use prod for the stage name.
+
+Amazon API Gatewayコンソールから、Actions, Deploy API の順に選択します。 新しいステージを作成するように指示されます。 ステージ名には prod を使用できます。
+
+> From the Amazon API Gateway console, choose Actions, Deploy API. You'll be prompted to create a new stage. You can use prod for the stage name.
 
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
+
+1. **Actions** ドロップダウンリストで **Deploy API** を選択します。
+
+1. **Deployment stage** ドロップダウンリストで **[New Stage]** を選択します。
+
+1. **Stage Name** に `prod` と入力します。
+
+1. **Deploy** を選択します。
+
+1. 次のセクションで使うので、**Invoke URL** をメモします。
+
+(Original)
 
 1. In the **Actions** drop-down list select **Deploy API**.
 
@@ -201,12 +322,52 @@ From the Amazon API Gateway console, choose Actions, Deploy API. You'll be promp
 </p></details>
 
 ### 5. Update the Website Config
-Update the /js/config.js file in your website deployment to include the invoke URL of the stage you just created. You should copy the invoke URL directly from the top of the stage editor page on the Amazon API Gateway console and paste it into the \_config.api.invokeUrl key of your sites /js/config.js file. Make sure when you update the config file it still contains the updates you made in the previous module for your Cognito user pool.
+
+Webサイトのデプロイメントで /js/config.js ファイルを更新して、作成したばかりのステージの呼び出しURLを含めます。 Amazon API Gatewayコンソールのステージエディターページの上部から呼び出しURLを直接コピーして、 /js/config.js ファイルの \ _config.api.invokeUrl キーに貼り付ける必要があります。 設定ファイルを更新するときに、Cognitoユーザープールの前のモジュールで行った更新内容がまだ含まれていることを確認してください。
+
+> Update the /js/config.js file in your website deployment to include the invoke URL of the stage you just created. You should copy the invoke URL directly from the top of the stage editor page on the Amazon API Gateway console and paste it into the \_config.api.invokeUrl key of your sites /js/config.js file. Make sure when you update the config file it still contains the updates you made in the previous module for your Cognito user pool.
 
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
-If you completed module 2 manually, you can edit the `config.js` file you have saved locally. If you used the AWS CloudFormation template, you must first download the `config.js` file from your S3 bucket. To do so, visit `/js/config.js` under the base URL for your website and choose **File**, then choose **Save Page As** from your browser.
+モジュール2を手動で完成した場合は、ローカルに保存した `config.js` ファイルを編集できます。 AWS CloudFormationテンプレートを使用した場合は、まずS3バケットから `config.js` ファイルをダウンロードする必要があります。 そうするためには、あなたのウェブサイトのベースURLの下の `/js/config.js` にアクセスし、**File** を選択してから、ブラウザから **Save Page As** を選択してください。
+
+> If you completed module 2 manually, you can edit the `config.js` file you have saved locally. If you used the AWS CloudFormation template, you must first download the `config.js` file from your S3 bucket. To do so, visit `/js/config.js` under the base URL for your website and choose **File**, then choose **Save Page As** from your browser.
+
+1. テキストエディタで config.js ファイルを開きます。
+
+1. config.js ファイルの **api** キーの下にある **invokeUrl** 設定を更新します。 前のセクションで作成したデプロイメントステージの値を **Invoke URL** に設定します。
+
+    完全な `config.js` ファイルの例は以下に含まれています。 ファイル内の実際の値は異なるでしょう。
+
+    ```JavaScript
+    window._config = {
+        cognito: {
+            userPoolId: 'us-west-2_uXboG5pAb', // e.g. us-east-2_uXboG5pAb
+            userPoolClientId: '25ddkmj4v6hfsfvruhpfi7n4hv', // e.g. 25ddkmj4v6hfsfvruhpfi7n4hv
+            region: 'us-west-2' // e.g. us-east-2
+        },
+        api: {
+            invokeUrl: 'https://rc7nyt4tql.execute-api.us-west-2.amazonaws.com/prod' // e.g. https://rc7nyt4tql.execute-api.us-west-2.amazonaws.com/prod,
+        }
+    };
+    ```
+
+1. 変更をローカルに保存してください。
+
+1. AWSマネジメントコンソールで、**Services** を選択し、Storageの下の **S3** を選択します。
+
+1. あなたのウェブサイトのバケットを選択してから、 `js` キープレフィックスを参照してください。
+
+1. **Upload** を選択します。
+
+1. **Add files** を選択し、ローカルの `config.js` を選択して **Next** をクリックします。
+
+1. `Set permissions` と `Set properties` セクションでデフォルト設定を変更せずに **Next** を選択してください。
+
+1. `Review` セクションで **Upload** を選択してください。
+
+(Original)
 
 1. Open the config.js file in a text editor.
 
@@ -245,7 +406,19 @@ If you completed module 2 manually, you can edit the `config.js` file you have s
 
 ## Implementation Validation
 
-**Note:** It's possible that you will see a delay between updating the config.js file in your S3 bucket and when the updated content is visible in your browser. You should also ensure that you clear your browser cache before executing the following steps.
+**Note:** S3バケットの config.js ファイルを更新してから、更新されたコンテンツがブラウザに表示されるまでに時間がかかることがあります。 次の手順を実行する前に、ブラウザのキャッシュをクリアするようにしてください。
+
+> **Note:** It's possible that you will see a delay between updating the config.js file in your S3 bucket and when the updated content is visible in your browser. You should also ensure that you clear your browser cache before executing the following steps.
+
+1. あなたのウェブサイトドメインの `/ride.html` にアクセスしてください。
+
+1. サインインページにリダイレクトされた場合は、前のモジュールで作成したユーザーでサインインしてください。
+
+1. 地図が読み込まれたら、地図上の任意の場所をクリックしてピックアップ場所を設定します。
+
+1. **Request Unicorn** を選択してください。 右側のサイドバーに、ユニコーンが向かっているという通知が表示され、ユニコーンのアイコンがピックアップ場所に移動するのを確認できます。
+
+(Original)
 
 1. Visit `/ride.html` under your website domain.
 
@@ -255,6 +428,10 @@ If you completed module 2 manually, you can edit the `config.js` file you have s
 
 1. Choose **Request Unicorn**. You should see a notification in the right sidebar that a unicorn is on its way and then see a unicorn icon fly to your pickup location.
 
-Congratulations, you have completed the Wild Rydes Web Application Workshop! Check out our [other workshops](../../README.md#workshops) covering additional serverless use cases.
+おめでとうございます、あなたはWild Rydes Webアプリケーションワークショップを終了しました！ 様々なサーバーレスのユースケースをカバーしている [other workshops](../../README.md#workshops) に進んでください。
 
-See this workshop's [cleanup guide](../9_CleanUp) for instructions on how to delete the resources you've created.
+> Congratulations, you have completed the Wild Rydes Web Application Workshop! Check out our [other workshops](../../README.md#workshops) covering additional serverless use cases.
+
+作成したリソースを削除する方法については、このワークショップの [cleanup guide](../9_CleanUp) を参照してください。
+
+> See this workshop's [cleanup guide](../9_CleanUp) for instructions on how to delete the resources you've created.
