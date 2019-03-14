@@ -428,7 +428,7 @@ Webサイトのデプロイメントで /js/config.js ファイルを更新し�
 
 1. Choose **Request Unicorn**. You should see a notification in the right sidebar that a unicorn is on its way and then see a unicorn icon fly to your pickup location.
 
-おめでとうございます、あなたはWild Rydes Webアプリケーションワークショップを終了しました！ 様々なサーバーレスのユースケースをカバーしている [other workshops](../../README.md#workshops) に進んでください。
+おめでとうございます、あなたはWild Rydes Webアプリケーションワークショップを終了しました！ 様々なサーバーレスのユースケースをカバーしている [other workshops](../../README_jp.md#workshops) に進んでください。
 
 > Congratulations, you have completed the Wild Rydes Web Application Workshop! Check out our [other workshops](../../README.md#workshops) covering additional serverless use cases.
 
