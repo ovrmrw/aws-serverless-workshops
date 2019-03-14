@@ -1,10 +1,12 @@
 # Module 2: User Authentication and Registration with Amazon Cognito User Pools
 
-このモジュールでは、ユーザーのアカウントを管理するためのAmazon Cognitoユーザープールを作成します。 顧客が新規ユーザーとして登録し、自分のEメールアドレスを確認し、そしてサイトにサインインできるようにするページを配置します。
+このモジュールでは、ユーザーのアカウントを管理するためのAmazon Cognitoユーザープールを作成します。 来訪者が新規ユーザーとして登録し、自分のEメールアドレスを確認し、そしてサイトにサインインできるようにするページを配置します。
 
 > In this module you'll create an Amazon Cognito user pool to manage your users' accounts. You'll deploy pages that enable customers to register as a new user, verify their email address, and sign into the site.
 
 次のモジュールにスキップしたい場合は、必要なリソースを自動的に構築するために、選択した地域でこれらのAWS CloudFormationテンプレートの1つを起動できます。
+
+**社内ワークショップメモ: 共用アカウントでは CloudFormation は使用できません。**
 
 > If you want to skip ahead to the next module, you can launch one of these AWS CloudFormation templates in the Region of your choice in order to build the necessary resources automatically.
 
@@ -57,7 +59,7 @@ Asia Pacific (Mumbai) | [![Launch Module 2 in ap-south-1](http://docs.aws.amazon
 
 > After users submit their registration, Amazon Cognito will send a confirmation email with a verification code to the address they provided. To confirm their account, users will return to your site and enter their email address and the verification code they received. You can also confirm user accounts using the Amazon Cognito console if you want to use fake email addresses for testing.
 
-ユーザーが確認済みアカウント（Eメールの確認プロセスまたはコンソールによる手動確認のいずれかを使用）を作成したら、サインインできます。サインインするときに、ユーザー名（またはEメール）とパスワードを入力します。その後、JavaScript関数がAmazon Cognitoと通信し、セキュアリモートパスワードプロトコル（SRP）を使用して認証し、一連のJSON Webトークン（JWT）を受け取ります。 JWTにはユーザーのIDに関するクレームが含まれており、Amazon API Gatewayで構築したRESTful APIに対して認証するために次のモジュールで使用されます。
+ユーザーが確認済みアカウント（Eメールの確認プロセスまたはコンソールによる手動確認のいずれかを使用）を作成したら、サインインできます。サインインするときに、ユーザー名（またはEメール）とパスワードを入力します。その後、JavaScriptの関数がAmazon Cognitoと通信し、セキュアリモートパスワードプロトコル（SRP）を使用して認証し、一連のJSON Webトークン（JWT）を受け取ります。 JWTにはユーザーのIDに関するクレームが含まれており、Amazon API Gatewayで構築したRESTful APIに対して認証するために次のモジュールで使用されます。
 
 > After users have a confirmed account (either using the email verification process or a manual confirmation through the console), they will be able to sign in. When users sign in, they enter their username (or email) and password. A JavaScript function then communicates with Amazon Cognito, authenticates using the Secure Remote Password protocol (SRP), and receives back a set of JSON Web Tokens (JWT). The JWTs contain claims about the identity of the user and will be used in the next module to authenticate against the RESTful API you build with Amazon API Gateway.
 
@@ -73,11 +75,11 @@ Asia Pacific (Mumbai) | [![Launch Module 2 in ap-south-1](http://docs.aws.amazon
 
 > If you're using the latest version of the Chrome, Firefox, or Safari web browsers the step-by-step instructions won't be visible until you expand the section.
 
-### 1. Create an Amazon Cognito User Pool (Amazon Cognitoユーザープールを作成する)
+### 1. Create an Amazon Cognito User Pool
 
 #### Background
 
-Amazon Cognitoには、ユーザーを認証するための2つの異なるメカニズムがあります。 Cognitoユーザープールを使用してアプリケーションにサインアップおよびサインイン機能を追加したり、Cognito IDプールを使用してFacebook、Twitter、AmazonなどのソーシャルIDプロバイダーを通じて、またはSAML IDソリューションを使用してユーザーを認証できます。 アイデンティティシステム このモジュールでは、提供された登録ページとサインインページのバックエンドとしてユーザープールを使用します。
+Amazon Cognitoには、ユーザーを認証するための2つの異なるメカニズムがあります。 Cognitoユーザープールを使用してアプリケーションにサインアップおよびサインイン機能を追加したり、Cognito IDプールを使用してFacebook、Twitter、AmazonなどのソーシャルIDプロバイダーを通じて、SAML IDソリューションまたは独自のアイデンティティシステムを使用してユーザーを認証できます。 このモジュールでは、提供された登録ページとサインインページのバックエンドとしてユーザープールを使用します。
 
 > Amazon Cognito provides two different mechanisms for authenticating users. You can use Cognito User Pools to add sign-up and sign-in functionality to your application or use Cognito Identity Pools to authenticate users through social identity providers such as Facebook, Twitter, or Amazon, with SAML identity solutions, or by using your own identity system. For this module you'll use a user pool as the backend for the provided registration and sign-in pages.
 
@@ -89,6 +91,22 @@ Amazon Cognitoコンソールを使用して、デフォルト設定を使用し
 
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
+
+1. AWSコンソールから、サービスをクリックして、「セキュリティ、アイデンティティ、コンプライアンス」の下の Cognito を選択します
+
+1. **ユーザープールの管理** を選択します。
+
+1. **ユーザープールを作成する** を選択します。
+
+1. プール名に `WildRydes-{Your Name}` と入力し、**デフォルトを確認する** を選択します。
+
+    ![Create a user pool screenshot](../images/create-a-user-pool.png)
+
+1. **プールの作成** をクリックします。
+
+1. 新しく作成したユーザープールの詳細ページにある **プール ID** をメモします。
+
+(Original)
 
 1. From the AWS Console click **Services** then select **Cognito** under Security, Identity & Compliance.
 
@@ -106,14 +124,30 @@ Amazon Cognitoコンソールを使用して、デフォルト設定を使用し
 
 </p></details>
 
-### 2. Add an App Client to Your User Pool (ユーザープールにアプリクライアントを追加する)
+### 2. Add an App Client to Your User Pool
 
-Amazon Cognitoコンソールからユーザープールを選択し、次に[App clients]セクションを選択します。 新しいアプリを追加して、[クライアントシークレットの生成]オプションが選択されていないことを確認します。 クライアント秘密はJavaScript SDKではサポートされていません。 生成されたシークレットでアプリを作成した場合は、それを削除して正しい設定で新しいアプリを作成してください。
+Amazon Cognitoコンソールからユーザープールを選択し、次にアプリクライアントを選択します。 新しいアプリを追加して、クライアントシークレットの生成オプションが選択されていないことを確認します。 クライアントシークレットはJavaScript SDKではサポートされていません。 生成されたシークレットでアプリを作成した場合は、それを削除して正しい設定で新しいアプリを作成してください。
 
 > From the Amazon Cognito console select your user pool and then select the **App clients** section. Add a new app and make sure the Generate client secret option is deselected. Client secrets aren't supported with the JavaScript SDK. If you do create an app with a generated secret, delete it and create a new one with the correct configuration.
 
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
+
+1. ユーザープールの詳細ページで、左側のナビゲーションバーの **全般設定** セクションから **アプリクライアント** を選択します。
+
+1. **アプリクライアントの追加** を選択します。
+
+1. アプリクライアント名に `WildRydesWebApp-{Your Name}` と入力します。
+
+1. クライアントシークレットの生成オプションのチェックを **外します**。 クライアントシークレットはブラウザベースのアプリケーションではサポートされていません。
+
+1. **アプリクライアントの作成** を選択します。
+
+   <kbd>![Create app client screenshot](../images/add-app.png)</kbd>
+
+1. 新しく作成された **アプリクライアント ID** をメモしておきます。
+
+(Original)
 
 1. From the Pool Details page for your user pool, select **App clients** from the **General settings** section in the left navigation bar.
 
@@ -133,12 +167,38 @@ Amazon Cognitoコンソールからユーザープールを選択し、次に[Ap
 
 ### 3. Update the config.js File in Your Website Bucket
 
-`/js/config.js` ファイルには、ユーザープールID、アプリクライアントID、および地域の設定が含まれています。 前の手順で作成したユーザープールとアプリの設定でこのファイルを更新し、ファイルをバケットにアップロードします。
+`/js/config.js` ファイルには、ユーザープールID、アプリクライアントID、およびリージョンの設定が含まれています。 前の手順で作成したユーザープールとアプリの設定でこのファイルを更新し、ファイルをバケットにアップロードします。
 
 > The [/js/config.js](../1_StaticWebHosting/website/js/config.js) file contains settings for the user pool ID, app client ID and Region. Update this file with the settings from the user pool and app you created in the previous steps and upload the file back to your bucket.
 
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
+
+1. このリポジトリの最初のモジュールのWebサイトディレクトリから [config.js](../1_StaticWebHosting/website/js/config.js) ファイルをローカルマシンにダウンロードします。
+  - **社内ワークショップメモ: Cloud9 で `curl -L -O https://raw.githubusercontent.com/ovrmrw/aws-serverless-workshops/feat-ja_jp/WebApplication/1_StaticWebHosting/website/js/config.js`**
+
+1. テキストエディタを使用してダウンロードしたファイルを開きます。
+
+1. 作成したユーザープールとアプリクライアントのID値で `cognito` セクションを更新します。
+
+1. 編集内容を保存し、ファイル名が `config.js` のままになっていることを確認します。
+  - **社内ワークショップメモ: このファイルをローカルPCにダウンロードしておきます。**
+
+1. [https://console.aws.amazon.com/s3/](https://console.aws.amazon.com/s3/) をクリックしてAmazon S3 コンソールを開きます。
+
+1. 前のモジュールで作成した Wild Rydes バケットを選択します。
+
+1. `js` ディレクトリに入ります。
+
+1. **アップロード** を選択し、**ファイルを追加** を選択します。
+
+1. 先ほどダウンロードした `config.js` を選択し、**選択** ボタンをクリックします。
+
+    ![s3-upload.png](../images/s3-upload.png)
+
+1. ダイアログ左下にある **アップロード** を選択します。
+
+(Original)
 
 1. Download the [config.js](../1_StaticWebHosting/website/js/config.js) file from the website directory of the first module in this repository to your local machine.
 
@@ -190,7 +250,7 @@ Amazon Cognitoコンソールからユーザープールを選択し、次に[Ap
 
 <p>
 
-注：登録、検証、およびサインインフローを管理するためのブラウザサイドコードを作成してもらう代わりに、最初のモジュールでデプロイしたアセットに実用的な実装を提供します。 `cognito-auth.js` ファイルには、UIイベントを処理して適切なAmazon Cognito Identity SDKメソッドを呼び出すコードが含まれています。 SDKの詳細については、GitHubのプロジェクトページを参照してください。
+**Note:** 登録、検証、およびサインインフローを管理するためのブラウザサイドコードを作成してもらう代わりに、最初のモジュールでデプロイしたアセットに実用的な実装を提供します。 [cognito-auth.js](../1_StaticWebHosting/website/js/cognito-auth.js) ファイルには、UIイベントを処理して適切なAmazon Cognito Identity SDKメソッドを呼び出すコードが含まれています。 SDKの詳細については、[GitHubのプロジェクトページ](https://github.com/aws/amazon-cognito-identity-js) を参照してください。
 
 > **Note:** Instead of having you write the browser-side code for managing the registration, verification, and sign in flows, we provide a working implementation in the assets you deployed in the first module. The [cognito-auth.js](../1_StaticWebHosting/website/js/cognito-auth.js) file contains the code that handles UI events and invokes the appropriate Amazon Cognito Identity SDK methods. For more information about the SDK, see the [project page on GitHub](https://github.com/aws/amazon-cognito-identity-js).
 
@@ -198,27 +258,19 @@ Amazon Cognitoコンソールからユーザープールを選択し、次に[Ap
 
 ## Implementation Validation
 
-1. あなたのウェブサイトのドメインの下にある `/register.html` にアクセスするか、Giddy Upを選択してください。あなたのサイトのホームページのボタンをクリックしてください。
+1. あなたのウェブサイトのドメインの下にある `/register.html` にアクセスするか、**Giddy Up!** ボタンをクリックしてください。
 
 1. 登録フォームに記入して、「Let's Ryde」を選択してください。あなたはあなた自身のEメールを使うか、偽のEメールを入力することができます。少なくとも1つの大文字、数字、および特殊文字を含むパスワードを必ず選択してください。後で入力したパスワードを忘れないでください。ユーザーが作成されたことを確認するアラートが表示されます。
 
 1. 次の2つの方法のいずれかを使用して、新しいユーザーを確認してください。
 
-1. 管理しているEメールアドレスを使用した場合は、Webサイトドメインの下にある/verify.htmlにアクセスし、確認コードを入力してアカウント確認プロセスを完了できます。確認メールはスパムフォルダに保存される可能性があります。実際のデプロイでは、Amazon Simple Email Serviceを使用して、所有するドメインからEメールを送信するようにユーザープールを設定することをお勧めします。
+1. 管理しているEメールアドレスを使用した場合は、Webサイトドメインの下にある `/verify.html` にアクセスし、確認コードを入力してアカウント確認プロセスを完了できます。確認メールはスパムフォルダに保存される可能性があります。実際のデプロイでは、Amazon Simple Email Serviceを使用して、所有するドメインからEメールを送信するようにユーザープールを設定することをお勧めします。
 
 1. ダミーのEメールアドレスを使用した場合は、Cognitoコンソールから手動でユーザーを確認する必要があります。
 
-    1. AWSコンソールから、[Services]をクリックし、[Security、Identity＆Compliance]の下の[** Cognito **]を選択します。
+    1. (原文を参照)
 
-    1. [ユーザープールの管理]を選択します。
-
-    1.  `WildRydes`ユーザープールを選択して、左側のナビゲーションバーの** Users and groups **をクリックします。
-
-    1. 登録ページから送信したEメールアドレスに対応するユーザーが表示されます。 そのユーザー名を選択してユーザー詳細ページを表示します。
-
-    1. **ユーザーの確認**を選択してアカウント作成プロセスを終了します。
-
-1. `/verify.html` ページまたはCognitoコンソールを使用して新しいユーザーを確認した後、`/signin.html` にアクセスして、登録手順で入力した電子メールアドレスとパスワードを使用してログインします。
+1. `/verify.html` ページまたはCognitoコンソールを使用して新しいユーザーを確認した後、`/signin.html` にアクセスして、登録手順で入力したメールアドレスとパスワードを使用してログインします。
 
 1. 成功すれば `/ride.html` にリダイレクトされるはずです。 APIが設定されていないという通知が表示されます。
 
@@ -250,12 +302,12 @@ Amazon Cognitoコンソールからユーザープールを選択し、次に[Ap
 
     ![Successful login screenshot](../images/successful-login.png)
 
-Webアプリケーションに正常にログインしたら、次のモジュールであるServerless Backendに進むことができます。
+Webアプリケーションに正常にログインしたら、次のモジュールである [Serverless Backend](../3_ServerlessBackend/README_jp.md) に進むことができます。
 
-> After you have successfully logged into your web application, you can proceed to the next module, [Serverless Backend](../3_ServerlessBackend/README_jp.md).
+> After you have successfully logged into your web application, you can proceed to the next module, [Serverless Backend](../3_ServerlessBackend/README.md).
 
 ### Extra
 
-* 受け取った **auth_token** をコピーしてオンラインのJWT Decoderに貼り付けて、このトークンがアプリケーションにとって何を意味するのかを理解してください。
+* 受け取った **auth_token** をコピーして [online JWT Decoder](https://jwt.io/) に貼り付けて、このトークンがアプリケーションにとって何を意味するのかを理解してください。
 
 > * Try copying the **auth_token** you've received and paste that into an [online JWT Decoder](https://jwt.io/) to understand what this token means for your application

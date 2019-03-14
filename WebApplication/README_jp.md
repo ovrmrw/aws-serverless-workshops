@@ -1,6 +1,6 @@
 # Serverless Web Application Workshop
 
-このワークショップでは、ユーザーが [Wild Rydes](http://www.wildrydes.com/) の艦隊からユニコーンライドを要求できるようにする簡単なWebアプリケーションをデプロイします。 アプリケーションは、ピックアップしたい場所を示すためのHTMLベースのユーザーインターフェースをユーザーに提示し、リクエストを送信して近くのユニコーンをディスパッチするためのRESTful Webサービスとバックエンドでインターフェースします。 アプリケーションはまた、ユーザーがサービスに登録して乗り物を要求する前にログインするための機能を提供します。
+このワークショップでは、ユーザーが [Wild Rydes](http://www.wildrydes.com/) のフリートからユニコーンライドをリクエストできるようにする簡単なWebアプリケーションをデプロイします。 アプリケーションは、ピックアップしたい場所を示すためのHTMLベースのユーザーインターフェースをユーザーに提示し、リクエストを送信して近くのユニコーンを手配するためのRESTful Webサービスとバックエンドでインターフェースします。 アプリケーションはまた、ユーザーがサービスに登録してライドをリクエストする前にログインするための機能を提供します。
 
 > In this workshop you'll deploy a simple web application that enables users to request unicorn rides from the [Wild Rydes](http://www.wildrydes.com/) fleet. The application will present users with an HTML based user interface for indicating the location where they would like to be picked up and will interface on the backend with a RESTful web service to submit the request and dispatch a nearby unicorn. The application will also provide facilities for users to register with the service and log in before requesting rides.
 
@@ -14,19 +14,19 @@
 
 ![Wild Rydes Web Application Architecture](images/wildrydes-complete-architecture.png)
 
-あなたが飛び込んで始めたいのであれば、ワークショップを始めるために静的ウェブホスティングモジュールのページを訪問してください。
+あなたが飛び込んで始めたいのであれば、ワークショップを始めるために [Static Web hosting](1_StaticWebHosting/README_jp.md) モジュールのページを訪問してください。
 
 > If you'd like to jump in and get started please visit the [Static Web hosting](1_StaticWebHosting/README_jp.md) module page to begin the workshop.
 
-## Prerequisites (前提条件)
+## Prerequisites
 
 ### AWS Account
 
-このワークショップを完了するには、AWS IAM、S3、DynamoDB、Lambda、API Gateway、およびCognitoリソースを作成するためのアクセス権を持つAWSアカウントが必要です。 このワークショップのコードと手順では、一度に1人の学生のみが特定のAWSアカウントを使用していると想定しています。 他の生徒とアカウントを共有しようとすると、特定のリソースで名前の競合が発生します。 競合のために作成に失敗したリソースに固有のサフィックスを追加することでこれらを回避することができますが、説明にはこの作業を行うために必要な変更の詳細が記載されていません。
+このワークショップを完了するには、AWS IAM、S3、DynamoDB、Lambda、API Gateway、およびCognitoリソースを作成するためのアクセス権を持つAWSアカウントが必要です。 このワークショップのコードと手順では、一度に1人の学習者のみが特定のAWSアカウントを使用していると想定しています。 他の学習者とアカウントを共有しようとすると、特定のリソースで名前の競合が発生します。 競合のために作成に失敗したリソースに固有のサフィックスを追加することでこれらを回避することができますが、説明にはこの作業を行うために必要な変更の詳細が記載されていません。
 
 > In order to complete this workshop you'll need an AWS Account with access to create AWS IAM, S3, DynamoDB, Lambda, API Gateway and Cognito resources. The code and instructions in this workshop assume only one student is using a given AWS account at a time. If you try sharing an account with another student, you'll run into naming conflicts for certain resources. You can work around these by appending a unique suffix to the resources that fail to create due to conflicts, but the instructions do not provide details on the changes required to make this work.
 
-このワークショップの一環としてあなたが立ち上げるすべてのリソースは、あなたのアカウントが12ヶ月未満であればAWSの無料利用枠の対象となります。 詳細についてはAWS無料利用枠ページをご覧ください。
+このワークショップの一環としてあなたが立ち上げるすべてのリソースは、あなたのアカウントが12ヶ月未満であればAWSの無料利用枠の対象となります。 詳細については [AWS Free Tier page](https://aws.amazon.com/free/) をご覧ください。
 
 > All of the resources you will launch as part of this workshop are eligible for the AWS free tier if your account is less than 12 months old. See the [AWS Free Tier page](https://aws.amazon.com/free/) for more details.
 
@@ -40,6 +40,8 @@
 
 設定ファイルを少し更新するには、ローカルのテキストエディタが必要です。
 
+**社内ワークショップメモ: AWS Cloud9 を使います。**
+
 > You will need a local text editor for making minor updates to configuration files.
 
 ## Modules
@@ -52,6 +54,7 @@
 2. [User Management](2_UserManagement/README_jp.md)
 3. [Serverless Backend](3_ServerlessBackend/README_jp.md)
 4. [RESTful APIs](4_RESTfulAPIs/README_jp.md)
+5. [OAuth](5_OAuth/README_jp.md)
 
 ワークショップを終了したら、クリーンアップガイドに従って作成されたすべてのリソースを削除できます。
 
