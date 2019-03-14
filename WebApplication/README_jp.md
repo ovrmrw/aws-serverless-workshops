@@ -1,6 +1,6 @@
 # Serverless Web Application Workshop
 
-このワークショップでは、ユーザーがWild Rydesの艦隊からユニコーンライドを要求できるようにする簡単なWebアプリケーションをデプロイします。 アプリケーションは、ピックアップしたい場所を示すためのHTMLベースのユーザーインターフェースをユーザーに提示し、リクエストを送信して近くのユニコーンをディスパッチするためのRESTful Webサービスとバックエンドでインターフェースします。 アプリケーションはまた、ユーザーがサービスに登録して乗り物を要求する前にログインするための機能を提供します。
+このワークショップでは、ユーザーが [Wild Rydes](http://www.wildrydes.com/) の艦隊からユニコーンライドを要求できるようにする簡単なWebアプリケーションをデプロイします。 アプリケーションは、ピックアップしたい場所を示すためのHTMLベースのユーザーインターフェースをユーザーに提示し、リクエストを送信して近くのユニコーンをディスパッチするためのRESTful Webサービスとバックエンドでインターフェースします。 アプリケーションはまた、ユーザーがサービスに登録して乗り物を要求する前にログインするための機能を提供します。
 
 > In this workshop you'll deploy a simple web application that enables users to request unicorn rides from the [Wild Rydes](http://www.wildrydes.com/) fleet. The application will present users with an HTML based user interface for indicating the location where they would like to be picked up and will interface on the backend with a RESTful web service to submit the request and dispatch a nearby unicorn. The application will also provide facilities for users to register with the service and log in before requesting rides.
 

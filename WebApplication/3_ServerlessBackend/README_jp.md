@@ -251,6 +251,56 @@ AWS Lambdaコンソールを使用して、APIリクエストを処理する `Re
 
 > For this module you will test the function that you built using the AWS Lambda console. In the next module you will add a REST API with API Gateway so you can invoke your function from the browser-based application that you deployed in the first module.
 
+1. 関数のメインエディタで、**Select a test event...** から **Configure test event** を選択します。
+
+1. **Create new test event** を選択したままにします。
+
+1. **Event name** フィールドに `TestRequestEvent` と入力します。
+
+1. 次のテストイベントをコピーしてエディタに貼り付けます。
+
+    ```JSON
+    {
+        "path": "/ride",
+        "httpMethod": "POST",
+        "headers": {
+            "Accept": "*/*",
+            "Authorization": "eyJraWQiOiJLTzRVMWZs",
+            "content-type": "application/json; charset=UTF-8"
+        },
+        "queryStringParameters": null,
+        "pathParameters": null,
+        "requestContext": {
+            "authorizer": {
+                "claims": {
+                    "cognito:username": "the_username"
+                }
+            }
+        },
+        "body": "{\"PickupLocation\":{\"Latitude\":47.6174755835663,\"Longitude\":-122.28837066650185}}"
+    }
+    ```
+
+1. **Create** をクリックします。
+
+1. メインの関数エディタで、ドロップダウンから `TestRequestEvent` を選択した状態で **Test** をクリックします。
+
+1. ページの一番上までスクロールして、**Execution result** セクションの **Details** セクションを展開します。
+
+1. 実行が成功したこと、および関数の結果が次のようになっていることを確認してください。
+
+    ```JSON
+    {
+        "statusCode": 201,
+        "body": "{\"RideId\":\"SvLnijIAtg6inAFUBRT+Fg==\",\"Unicorn\":{\"Name\":\"Rocinante\",\"Color\":\"Yellow\",\"Gender\":\"Female\"},\"Eta\":\"30 seconds\"}",
+        "headers": {
+            "Access-Control-Allow-Origin": "*"
+        }
+    }
+    ```
+
+(Original)
+
 1. From the main edit screen for your function, select **Configure test event** from the the **Select a test event...** dropdown.
     ![Configure test event](../images/configure-test-event.png)
 
@@ -291,14 +341,17 @@ AWS Lambdaコンソールを使用して、APIリクエストを処理する `Re
 1. Scroll to the top of the page and expand the **Details** section of the **Execution result** section.
 
 1. Verify that the execution succeeded and that the function result looks like the following:
-```JSON
-{
-    "statusCode": 201,
-    "body": "{\"RideId\":\"SvLnijIAtg6inAFUBRT+Fg==\",\"Unicorn\":{\"Name\":\"Rocinante\",\"Color\":\"Yellow\",\"Gender\":\"Female\"},\"Eta\":\"30 seconds\"}",
-    "headers": {
-        "Access-Control-Allow-Origin": "*"
-    }
-}
-```
 
-After you have successfully tested your new function using the Lambda console, you can move on to the next module, [RESTful APIs](../4_RESTfulAPIs).
+    ```JSON
+    {
+        "statusCode": 201,
+        "body": "{\"RideId\":\"SvLnijIAtg6inAFUBRT+Fg==\",\"Unicorn\":{\"Name\":\"Rocinante\",\"Color\":\"Yellow\",\"Gender\":\"Female\"},\"Eta\":\"30 seconds\"}",
+        "headers": {
+            "Access-Control-Allow-Origin": "*"
+        }
+    }
+    ```
+
+Lambdaコンソールを使用して新しい関数を正常にテストできたら、次のモジュール [RESTful APIs](../4_RESTfulAPIs) に進むことができます。
+
+> After you have successfully tested your new function using the Lambda console, you can move on to the next module, [RESTful APIs](../4_RESTfulAPIs).
