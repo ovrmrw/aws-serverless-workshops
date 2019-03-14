@@ -1,8 +1,27 @@
 # Wild Rydes Serverless Workshops
 
-This repository contains a collection of workshops and other hands on content that will guide you through building various serverless applications using AWS Lambda, Amazon API Gateway, Amazon DynamoDB, AWS Step Functions, Amazon Kinesis, and other services.
+このリポジトリはワークショップの集まりとその他の構築のガイドに役立つコンテンツです。
+様々なサーバーレスアプリケーションは AWS Lambda, Amazon API Gateway, Amazon DynamoDB, AWS Step Functions, Amazon Kinesis そしてその他のサービスを使用します。
+
+> This repository contains a collection of workshops and other hands on content that will guide you through building ?   various serverless applications using AWS Lambda, Amazon API Gateway, Amazon DynamoDB, AWS Step Functions, Amazon Kinesis, and other services.
 
 # Workshops
+
+- [**ウェブアプリケーション**](WebApplication) - このワークショップは動的なサーバーレスアプリケーションの構築する方法を説明します。S3 で静的リソースをホスティングする方法、Amazon Cognito でユーザー管理と認証を行う方法、Amazon API Gateway と AWS Lambda と Amazon DynamoDB を用いてバックエンドの RESTful API を構築する方法を学びます。
+
+- [**認証**](Auth) - このワークショップはアプリケーションのサインアップとサインイン機能から始めて、複数層のセキュリティで構築する方法、サーバーレスのマイクロサービスをセキュアにする方法、アプリケーションのユーザーにきめ細かなアクセスコントロールを提供する IAM を使用する方法を紹介します。AWS Amplify を Amazon Cognito, Amazon API Gateway, AWS Lambda および IAM に連携して、組み込まれた認証・認可を提供する方法を学びます。
+
+- [**データ処理**](https://dataprocessing.wildrydes.com) - このワークショップはサーバーレスアプリケーションを用いたデータの収集・蓄積・処理をする方法のデモンストレーションです。このワークショップ内では Amazon Kinesis Data Streams and Amazon Kinesis Data Analytics を使ったリアルタイムストリーミングアプリケーションを構築する方法や、Amazon Kinesis Data Firehose と S3 を用いたデータストリームをアーカイブする方法、そしてそれらのファイルに対して Amazon Athena を用いたアドホックなクエリの実行方法を学びます。
+
+- [**DevOps**](DevOps) - このワークショップでは [Serverless Application Model (SAM)](https://github.com/awslabs/serverless-application-model) を使った Amazon API Gateway と AWS Lambda と Amazon DynamoDB でのサーバーレスアプリケーションを構築する方法を紹介します。ワークステーションからアプリケーションの更新リリースまでの SAM の利用方法、AWS CodePipeline と AWS CodeBuild を用いた サーバーレスアプリケーションの CI/CD パイプラインの構築方法、アプリケーションの複数環境を管理するためのパイプラインを強化する方法を学びます。
+
+- [**画像処理**](ImageProcessing) - ここではバックエンドでの協調したワークフローを使ってサーバーレスで画像処理するアプリケーションを構築する方法を紹介します。Amazon Rekogntion のディープラーニングに基づく顔認証機能を活用しつつ、複数の AWS Lambda 関数 が協調する AWS Step Functions の基本を学びます。
+
+- [**Multi Region**](MultiRegion) - このワークショップでは2つのリージョンにレプリケーションして障害発生時に自動でフェイルオーバーするサーバーレスのチケットシステムを構築する方法を紹介します。AWS Lambda 関数のデプロイのいろはを、API Gateway での公開および Route53 と DynamoDB のレプリケーションの設定を通して学びます。
+
+- [**セキュリティ**](https://github.com/aws-samples/aws-serverless-security-workshop) - このワークショップでは AWS Lambda・Amazon API Gateway・RDS Aurora でのサーバーレスアプリケーション構築をセキュアに行うテクニックを紹介します。アイデンティティとアクセス管理・インフラストラクチャー・データ・コード・ロギングと監視 の5つの領域について、サーバーレスアプリケーションのセキュリティを向上に活用できるAWSサービスと機能について紹介します。
+
+(Original)
 
 - [**Web Application**](WebApplication) - This workshop shows you how to build a dynamic, serverless web application. You'll learn how to host static web resources with Amazon S3, how to use Amazon Cognito to manage users and authentication, and how to build a RESTful API for backend processing using Amazon API Gateway, AWS Lambda and Amazon DynamoDB.
 
