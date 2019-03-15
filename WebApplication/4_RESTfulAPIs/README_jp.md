@@ -327,7 +327,7 @@ Amazon API Gateway コンソールから、`アクション`, `API のデプロ�
 
 ### 5. Update the Website Config
 
-Webサイトのデプロイメントで `/js/config.js` ファイルを更新して、作成したばかりのステージの呼び出しURLを含めます。 Amazon API Gateway コンソールのステージエディターページの上部から呼び出しURLを直接コピーして、 `/js/config.js` ファイルの `\_config.api.invokeUrl` キーに貼り付ける必要があります。 設定ファイルを更新するときに、Cognito ユーザープールの前のモジュールで行った更新内容がまだ含まれていることを確認してください。
+Webサイトのデプロイメントで `/js/config.js` ファイルを更新して、作成したばかりのステージの呼び出しURLを含めます。 Amazon API Gateway コンソールのステージエディターページの上部から呼び出しURLを直接コピーして、 `/js/config.js` ファイルの `_config.api.invokeUrl` キーに貼り付ける必要があります。 設定ファイルを更新するときに、Cognito ユーザープールの前のモジュールで行った更新内容がまだ含まれていることを確認してください。
 
 > Update the /js/config.js file in your website deployment to include the invoke URL of the stage you just created. You should copy the invoke URL directly from the top of the stage editor page on the Amazon API Gateway console and paste it into the \_config.api.invokeUrl key of your sites /js/config.js file. Make sure when you update the config file it still contains the updates you made in the previous module for your Cognito user pool.
 
