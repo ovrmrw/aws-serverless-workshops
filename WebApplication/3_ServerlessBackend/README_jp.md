@@ -264,7 +264,7 @@ AWS Lambda コンソールを使用して、APIリクエストを処理する `R
 
     ```JSON
     {
-        "path": "/ride-{Your Name}",
+        "path": "/ride",
         "httpMethod": "POST",
         "headers": {
             "Accept": "*/*",

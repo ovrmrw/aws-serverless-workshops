@@ -97,7 +97,7 @@ AWS Lambda コンソールを使用して、APIリクエストを処理する **
 
 1. [listUnicornRides.js](./listUnicornRides.js?raw=1) の内容を関数コードエディタに貼り付けます。
 
-1. (**社内ワークショップメモ: 共用アカウントの場合は50行目の `TableName: 'Rides',` の `Rides` を `Rides-{Your Name}` に変更する必要があります。**)
+1. (**社内ワークショップメモ: 共有アカウントの場合は50行目の `TableName: 'Rides',` の `Rides` を `Rides-{Your Name}` に変更する必要があります。**)
 
 1. ハンドラフィールドが **index.handler** になっていることを確認します。
 
@@ -294,7 +294,7 @@ API Gateway コンソールで、モジュール4で作成した `WildRydes` API
 
 1. Open the **サービス** menu and select **API Gateway** in the Application Services section.
 
-1. Open the **WildRydes-{Your Name}** API and, from the **リソース** page, select the `/ride-{Your Name}` resource.
+1. Open the **WildRydes-{Your Name}** API and, from the **リソース** page, select the `/ride` resource.
 
 1. Using the **アクション** dropdown menu in the **リソース** pane, select **メソッドの作成**.
 
@@ -786,11 +786,11 @@ Amazon Cognito ユーザープールは、認証コード付与、暗黙的付�
 
 ### Testing the application
 
-新しい Unicorn Manager アプリケーションのWebページを開く前に、ユニコーン用のユーザを作成する必要があります。 **DynamoDB** コンソールを使用して、**テーブル** ページを開き、**Rides** テーブルを選択します。 **項目** タブで、ライドのリストを更新する。 **UnicornName** フィールドから最も一般的なユニコーン名を取り、値をコピーします。
+新しい Unicorn Manager アプリケーションのWebページを開く前に、ユニコーン用のユーザを作成する必要があります。 **DynamoDB** コンソールを使用して、**テーブル** ページを開き、**Rides-{Your Name}** テーブルを選択します。 **項目** タブで、ライドのリストを更新する。 **UnicornName** フィールドから最も一般的なユニコーン名を取り、値をコピーします。
 
 > Before we open the web page for the new Unicorn Manager application, we need to create a user for our unicorn. Using the **DynamoDB** console, open the **Tables** page and select the **Rides** table. In the **Items** tab, refresh the list of rides. Take the most common unicorn name from the **UnicornName** field and copy the value.
 
-次に、手順5で作成した CloudFront ディストリビューションドメインに移動して、ユニコーンマネージャーアプリケーションを開きます。ドメインは **xxxxxxxxxxxx.cloudfront.net** のようになります。 アプリケーションは、ログインしていないことを自動的に検出し、Cognito がホストするログインページにリダイレクトします。 ログインページで、フォームの下部にある **サインアップ** リンクを使用してください。
+次に、手順5で作成した CloudFront ディストリビューションドメインに移動して、ユニコーンマネージャーアプリケーションを開きます。ドメインは **xxxxxxxxxxxx.cloudfront.net** のようになります。 アプリケーションは、ログインしていないことを自動的に検出し、Cognito がホストするログインページにリダイレクトします。 ログインページで、フォームの下部にある **Sign up** リンクを使用してください。
 
 > Next, open the unicorn manager application by navigating to the CloudFront distribution domain we created in step #5 - the domain should look like this: **xxxxxxxxxxxx.cloudfront.net**. The application detects that we are not logged in an automatically redirects us to the Cognito hosted login page. On the login page, use the **Sign up** link at the bottom of the form.
 
