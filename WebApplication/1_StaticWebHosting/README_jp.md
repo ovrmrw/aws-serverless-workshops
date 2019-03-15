@@ -155,7 +155,7 @@ CLIがすでにインストールおよび設定されている場合は、そ�
 
 次のコマンドを実行して、 `YOUR_BUCKET_NAME` を前のセクションで使用した名前に、`YOUR_BUCKET_REGION` をバケットを作成した地域コード（例：us-east-2）に置き換えます。
 
-**社内ワークショップメモ: リージョンは eu-west-1**
+**社内ワークショップメモ: リージョンは eu-west-1 です。**
 
 > Execute the following command making sure to replace `YOUR_BUCKET_NAME` with the name you used in the previous section and `YOUR_BUCKET_REGION` with the region code (e.g. us-east-2) where you created your bucket.
 
