@@ -790,14 +790,26 @@ Amazon Cognito ユーザープールは、認証コード付与、暗黙的付�
 
 > Before we open the web page for the new Unicorn Manager application, we need to create a user for our unicorn. Using the **DynamoDB** console, open the **Tables** page and select the **Rides** table. In the **Items** tab, refresh the list of rides. Take the most common unicorn name from the **UnicornName** field and copy the value.
 
-Next, open the unicorn manager application by navigating to the CloudFront distribution domain we created in step #5 - the domain should look like this: **xxxxxxxxxxxx.cloudfront.net**. The application detects that we are not logged in an automatically redirects us to the Cognito hosted login page. On the login page, use the **Sign up** link at the bottom of the form.
+次に、手順5で作成した CloudFront ディストリビューションドメインに移動して、ユニコーンマネージャーアプリケーションを開きます。ドメインは **xxxxxxxxxxxx.cloudfront.net** のようになります。 アプリケーションは、ログインしていないことを自動的に検出し、Cognito がホストするログインページにリダイレクトします。 ログインページで、フォームの下部にある **サインアップ** リンクを使用してください。
 
-In the Sign up page, use the **UnicornName** value we copied from the DynamoDB table as the username, a valid email address, and create a password for the user. With most email addresses you can use a suffix preceded by **+** to create custom addresses. For example, you could sign up with **youremail+unicorn@emaildomain.com**.
+> Next, open the unicorn manager application by navigating to the CloudFront distribution domain we created in step #5 - the domain should look like this: **xxxxxxxxxxxx.cloudfront.net**. The application detects that we are not logged in an automatically redirects us to the Cognito hosted login page. On the login page, use the **Sign up** link at the bottom of the form.
+
+サインアップページで、DynamoDBテーブルからコピーした **UnicornName** 値をユーザー名、有効な電子メールアドレスとして使用し、ユーザーのパスワードを作成します。 ほとんどの電子メールアドレスでは、**+** の後に接尾辞を付けてカスタムアドレスを作成できます。 たとえば、**youremail+unicorn@emaildomain.com** でサインアップできます。
+
+> In the Sign up page, use the **UnicornName** value we copied from the DynamoDB table as the username, a valid email address, and create a password for the user. With most email addresses you can use a suffix preceded by **+** to create custom addresses. For example, you could sign up with **youremail+unicorn@emaildomain.com**.
 
 ![Sign up unicorn screenshot](../images/user-pool-unicorn-signup.png)
 
-Click **Sign up** to create the unicorn account. The hosted registration ui will ask you for the verification code, you should have received this code via email. Paste the verification code in the form and click **Confirm account**.
+ユニコーンアカウントを作成するには、**Sign up** をクリックしてください。 ホストされている登録UIから確認コードの入力を求められます。このコードを電子メールで受け取ったはずです。 確認コードをフォームに貼り付けて、**Confirm account** をクリックしてください。
 
-Once the account is confirmed, the application will redirect you to the main web page of the Unicorn manager. Use the **Refresh** button on the top right to load a list of the rides for the unicorn you registered.
+> Click **Sign up** to create the unicorn account. The hosted registration ui will ask you for the verification code, you should have received this code via email. Paste the verification code in the form and click **Confirm account**.
 
-We have now turned **Wild Rydes** into a platform. Third party developers can now ask us for a new client app id, use our hosted UI to authenticate and register new users. This will allow us to grow our customer base and toolkit beyond what our team can produce by itself, **UnicornManager** is just the first step.
+アカウントが確認されると、アプリケーションは Unicorn manager のメインWebページにあなたをリダイレクトします。 登録したユニコーンのライドのリストをロードするには、右上の **Refresh** ボタンを使用してください。
+
+> Once the account is confirmed, the application will redirect you to the main web page of the Unicorn manager. Use the **Refresh** button on the top right to load a list of the rides for the unicorn you registered.
+
+私たちは **Wild Rydes** をプラットフォームに変えました。 サードパーティの開発者は、新しいクライアントアプリIDを要求し、ホストされたUIを使用して新しいユーザーを認証および登録することができます。 これにより、私たちのチームが独自に生み出すことができるものを超えて、私たちの顧客基盤とツールキットを拡大することができます。
+
+> We have now turned **Wild Rydes** into a platform. Third party developers can now ask us for a new client app id, use our hosted UI to authenticate and register new users. This will allow us to grow our customer base and toolkit beyond what our team can produce by itself, **UnicornManager** is just the first step.
+
+**社内ワークショップメモ: ここまで到達したらこのワークショップは完了です。おつかれさまでした。**
