@@ -6,7 +6,7 @@
 
 次のモジュールにスキップしたい場合は、必要なリソースを自動的に構築するために、選択した地域でこれらのAWS CloudFormationテンプレートの1つを起動できます。
 
-**社内ワークショップメモ: 共用アカウントでは CloudFormation は使用できません。**
+**社内ワークショップメモ: 共有アカウントでは CloudFormation は使用できません。**
 
 > If you want to skip ahead to the next module, you can launch one of these AWS CloudFormation templates in the Region of your choice in order to build the necessary resources automatically.
 
@@ -175,14 +175,16 @@ Amazon Cognitoコンソールからユーザープールを選択し、次にア
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
 1. このリポジトリの最初のモジュールのWebサイトディレクトリから [config.js](../1_StaticWebHosting/website/js/config.js) ファイルをローカルマシンにダウンロードします。
-  - **社内ワークショップメモ: Cloud9 で `curl -L -O https://raw.githubusercontent.com/ovrmrw/aws-serverless-workshops/feat-ja_jp/WebApplication/1_StaticWebHosting/website/js/config.js`**
+
+1. (**社内ワークショップメモ: Cloud9 で `curl -L -O https://raw.githubusercontent.com/ovrmrw/aws-serverless-workshops/feat-ja_jp/WebApplication/1_StaticWebHosting/website/js/config.js`**)
 
 1. テキストエディタを使用してダウンロードしたファイルを開きます。
 
 1. 作成したユーザープールとアプリクライアントのID値で `cognito` セクションを更新します。
 
 1. 編集内容を保存し、ファイル名が `config.js` のままになっていることを確認します。
-  - **社内ワークショップメモ: このファイルをローカルPCにダウンロードしておきます。**
+
+1. (**社内ワークショップメモ: このファイルをローカルPCにダウンロードしておきます。**)
 
 1. [https://console.aws.amazon.com/s3/](https://console.aws.amazon.com/s3/) をクリックしてAmazon S3 コンソールを開きます。
 

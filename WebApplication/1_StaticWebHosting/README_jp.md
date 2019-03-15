@@ -1,12 +1,12 @@
 # Module 1: Static Web Hosting with Amazon S3
 
-このモジュールでは、Webアプリケーションの静的リソースをホストするようにAmazon Simple Storage Service（S3）を設定します。 後続のモジュールでは、JavaScriptを使用してこれらのページに動的機能を追加し、AWS LambdaおよびAmazon API Gatewayで構築されたリモートRESTful APIを呼び出します。
+このモジュールでは、Webアプリケーションの静的リソースをホストするように Amazon Simple Storage Service (S3) を設定します。 後続のモジュールでは、JavaScriptを使用してこれらのページに動的機能を追加し、AWS Lambda および Amazon API Gateway で構築されたリモートRESTful APIを呼び出します。
 
 > In this module you'll configure Amazon Simple Storage Service (S3) to host the static resources for your web application. In subsequent modules you'll add dynamic functionality to these pages using JavaScript to call remote RESTful APIs built with AWS Lambda and Amazon API Gateway.
 
-Amazon S3を既に使用している場合、またはLambdaとAPI Gatewayを使用したい場合は、必要なリソースを自動的に構築するために、選択した地域でこれらのAWS CloudFormationテンプレートの1つを起動できます。
+Amazon S3 を既に使用している場合、または Lambda と API Gateway を使用したい場合は、必要なリソースを自動的に構築するために、選択した地域でこれらの AWS CloudFormation テンプレートの1つを起動できます。
 
-**社内ワークショップメモ: 共用アカウントでは CloudFormation は使用できません。**
+**社内ワークショップメモ: 共有アカウントでは CloudFormation は使用できません。**
 
 > If you're already comfortable working with Amazon S3, or you just want to skip ahead to working with Lambda and API Gateway, you can launch one of these AWS CloudFormation templates in the Region of your choice to build the necessary resources automatically.
 
@@ -53,13 +53,13 @@ Asia Pacific (Mumbai) | [![Launch Module 1 in ap-south-1](http://docs.aws.amazon
 
 ## Architecture Overview
 
-このモジュールのアーキテクチャは非常に簡単です。 HTML、CSS、JavaScript、画像、その他のファイルを含む静的WebコンテンツはすべてAmazon S3に保存されます。 その後、エンドユーザーはAmazon S3によって公開されているパブリックWebサイトのURLを使用してあなたのサイトにアクセスします。 あなたのサイトを利用できるようにするために、Webサーバーを実行したり、他のサービスを使用したりする必要はありません。
+このモジュールのアーキテクチャは非常に簡単です。 HTML、CSS、JavaScript、画像、その他のファイルを含む静的Webコンテンツはすべて Amazon S3 に保存されます。 その後、エンドユーザーは Amazon S3 によって公開されているパブリックWebサイトのURLを使用してあなたのサイトにアクセスします。 あなたのサイトを利用できるようにするために、Webサーバーを実行したり、他のサービスを使用したりする必要はありません。
 
 > The architecture for this module is very straightforward. All of your static web content including HTML, CSS, JavaScript, images and other files will be stored in Amazon S3. Your end users will then access your site using the public website URL exposed by Amazon S3. You don't need to run any web servers or use other services in order to make your site available.
 
 ![Static website architecture](../images/static-website-architecture.png)
 
-このモジュールでは、Amazon S3ウェブサイトのエンドポイントURLを使用します。 使用する地域に応じて、 `http://{your-bucket-name}.s3-website-{region}.amazonaws.com` または `bucket-name.s3-website.region.amazonaws.com` の形式になります。 ほとんどの実際のアプリケーションでは、あなたのサイトをホストするためにカスタムドメインを使用したいでしょう。 自分のドメインを使用したい場合は、Amazon S3ドキュメントの「独自ドメインを使用して静的ウェブサイトをセットアップする」の手順に従ってください。
+このモジュールでは、Amazon S3 ウェブサイトのエンドポイントURLを使用します。 使用するリージョンに応じて、 `http://{your-bucket-name}.s3-website-{region}.amazonaws.com` または `bucket-name.s3-website.region.amazonaws.com` の形式になります。 ほとんどの実際のアプリケーションでは、あなたのサイトをホストするためにカスタムドメインを使用したいでしょう。 自分のドメインを使用したい場合は、Amazon S3ドキュメントの「独自ドメインを使用して静的ウェブサイトをセットアップする」の手順に従ってください。
 
 > For the purposes of this module you'll use the Amazon S3 website endpoint URL that we supply. It takes the form `http://{your-bucket-name}.s3-website-{region}.amazonaws.com` or `bucket-name.s3-website.region.amazonaws.com` depending on the region you use. For most real applications you'll want to use a custom domain to host your site. If you're interested in using a your own domain, follow the instructions for [setting up a static website using a custom domain](http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html) in the Amazon S3 documentation.
 
@@ -89,9 +89,9 @@ AWSドキュメントの地域テーブルを参照して、サポートされ�
 
 > You can refer to the [region table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/) in the AWS documentation to see which regions have the supported services. Among the supported regions you can choose are N. Virginia, Ohio, Oregon, Ireland, London, Frankfurt, Tokyo, Seol, Mumbai, and Sydney.
 
-地域を選択したら、このワークショップのためのすべてのリソースをそこに配置する必要があります。 開始する前に、AWSコンソールの右上隅にあるドロップダウンから必ずリージョンを選択してください。
+リージョンを選択したら、このワークショップのためのすべてのリソースをそこに配置する必要があります。 開始する前に、AWSコンソールの右上隅にあるドロップダウンから必ずリージョンを選択してください。
 
-**社内ワークショップメモ: アイルランドを使います。**
+**社内ワークショップメモ: リージョンはアイルランドを使います。**
 
 > Once you've chosen a region, you should deploy all of the resources for this workshop there. Make sure you select your region from the dropdown in the upper right corner of the AWS Console before getting started.
 
@@ -99,13 +99,13 @@ AWSドキュメントの地域テーブルを参照して、サポートされ�
 
 ### 1. Create an S3 Bucket
 
-Amazon S3を使用して、Webサーバーを設定または管理しなくても静的Webサイトをホストできます。 このステップでは、Webアプリケーションのすべての静的アセット（HTML、CSS、JavaScript、画像ファイルなど）をホストするために使用される新しいS3バケットを作成します。
+Amazon S3 を使用して、Webサーバーを設定または管理しなくても静的Webサイトをホストできます。 このステップでは、Webアプリケーションのすべての静的アセット（HTML、CSS、JavaScript、画像ファイルなど）をホストするために使用される新しい S3 バケットを作成します。
 
 > Amazon S3 can be used to host static websites without having to configure or manage any web servers. In this step you'll create a new S3 bucket that will be used to host all of the static assets (e.g. HTML, CSS, JavaScript, and image files) for your web application.
 
 #### High-Level Instructions
 
-コンソールまたはAWS CLIを使用してAmazon S3バケットを作成します。 あなたのバケットの名前はすべてのリージョンとアカウントにわたってグローバルにユニークでなければならないことに留意してください。 `wildrydes-firstname-lastname` のような名前を使用することをお勧めします。 バケット名がすでに存在するというエラーが表示された場合は、未使用の名前が見つかるまで数字または文字を追加してみてください。
+コンソールまたは AWS CLI を使用して Amazon S3 バケットを作成します。 あなたのバケットの名前はすべてのリージョンとアカウントにわたってグローバルにユニークでなければならないことに留意してください。 `wildrydes-firstname-lastname` のような名前を使用することをお勧めします。 バケット名がすでに存在するというエラーが表示された場合は、未使用の名前が見つかるまで数字または文字を追加してみてください。
 
 > Use the console or AWS CLI to create an Amazon S3 bucket. Keep in mind that your bucket's name must be globally unique across all regions and customers. We recommend using a name like `wildrydes-firstname-lastname`. If you get an error that your bucket name already exists, try adding additional numbers or characters until you find an unused name.
 
@@ -140,9 +140,9 @@ Amazon S3を使用して、Webサーバーを設定または管理しなくて�
 
 ### 2. Upload Content
 
-このモジュールのWebサイトアセットをS3バケットにアップロードします。 この手順を完了するには、AWSマネジメントコンソール（Google Chromeブラウザが必要）、AWS CLI、または提供されているCloudFormationテンプレートを使用できます。 ローカルマシンにAWS CLIがすでにインストールおよび設定されている場合は、その方法を使用することをお勧めします。 それ以外の場合は、最新バージョンのGoogle Chromeがインストールされている場合はコンソールを使用してください。
+このモジュールのWebサイトアセットを S3 バケットにアップロードします。 この手順を完了するには、AWSマネジメントコンソール（Google Chromeブラウザが必要）、AWS CLI、または提供されている CloudFormation テンプレートを使用できます。 ローカルマシンに AWS CLI がすでにインストールおよび設定されている場合は、その方法を使用することをお勧めします。 それ以外の場合は、最新バージョンのGoogle Chromeがインストールされている場合はコンソールを使用してください。
 
-**社内ワークショップメモ: AWS Cloud9 の CLI を使います。**
+**社内ワークショップメモ: AWS Cloud9 の Terminal で AWS CLI を使います。**
 
 > Upload the website assets for this module to your S3 bucket. You can use the AWS Management Console (requires Google Chrome browser), AWS CLI, or the provided CloudFormation template to complete this step. If you already have the AWS CLI installed and configured on your local machine, we recommend using that method. Otherwise, use the console if you have the latest version of Google Chrome installed.
 
@@ -203,13 +203,13 @@ Asia Pacific (Mumbai) | [![Launch Module 1 in ap-south-1](http://docs.aws.amazon
 
 ### 3. Add a Bucket Policy to Allow Public Reads
 
-バケットポリシーを使用して、S3バケットのコンテンツにアクセスできるユーザーを定義できます。 バケットポリシーは、どのプリンシパルがバケット内のオブジェクトに対してさまざまなアクションを実行できるかを指定するJSONドキュメントです。
+バケットポリシーを使用して、S3 バケットのコンテンツにアクセスできるユーザーを定義できます。 バケットポリシーは、どのプリンシパルがバケット内のオブジェクトに対してさまざまなアクションを実行できるかを指定するJSONドキュメントです。
 
 > You can define who can access the content in your S3 buckets using a bucket policy. Bucket policies are JSON documents that specify what principals are allowed to execute various actions against the objects in your bucket.
 
 #### High-Level Instructions
 
-匿名ユーザーにサイトを閲覧させるには、新しいAmazon S3バケットにバケットポリシーを追加する必要があります。 デフォルトでは、あなたのバケットはあなたのAWSアカウントへのアクセス権を持つ認証されたユーザーによってのみアクセス可能になります。
+匿名ユーザーにサイトを閲覧させるには、新しい Amazon S3 バケットにバケットポリシーを追加する必要があります。 デフォルトでは、あなたのバケットはあなたのAWSアカウントへのアクセス権を持つ認証されたユーザーによってのみアクセス可能になります。
 
 > You will need to add a bucket policy to your new Amazon S3 bucket to let anonymous users view your site. By default your bucket will only be accessible by authenticated users with access to your AWS account.
 
@@ -220,7 +220,7 @@ Asia Pacific (Mumbai) | [![Launch Module 1 in ap-south-1](http://docs.aws.amazon
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
-1. S3コンソールで、セクション1で作成したバケットの名前を選択します。
+1. S3 コンソールで、セクション1で作成したバケットの名前を選択します。
 
 1. **アクセス権限** タブを選び、次に **パブリックアクセス設定** を選びます。
 
@@ -282,11 +282,11 @@ Asia Pacific (Mumbai) | [![Launch Module 1 in ap-south-1](http://docs.aws.amazon
 
 ### 4. Enable Website Hosting
 
-デフォルトでは、S3バケット内のオブジェクトは、`http://<Regional-S3-prefix>.amazonaws.com/<bucket-name>/<object-key>` という構造のURLを介して使用できます。 ルートURL（ /index.html など）からアセットを配信するには、バケットでウェブサイトのホスティングを有効にする必要があります。 この機能の使用方法の詳細については、[Webサイトのエンドポイント](https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteEndpoints.html) のドキュメントを参照してください。 これにより、オブジェクトはバケットのAWSリージョン固有のWebサイトエンドポイントで利用可能になります。 お住まいのリージョンで使用されているドメインを見つけるには、[Amazon Simple Storage Service Website Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_website_region_endpoints) を参照してください。
+デフォルトでは、S3 バケット内のオブジェクトは、`http://<Regional-S3-prefix>.amazonaws.com/<bucket-name>/<object-key>` という構造のURLを介して使用できます。 ルートURL（ /index.html など）からアセットを配信するには、バケットでウェブサイトのホスティングを有効にする必要があります。 この機能の使用方法の詳細については、[Webサイトのエンドポイント](https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteEndpoints.html) のドキュメントを参照してください。 これにより、オブジェクトはバケットのAWSリージョン固有のWebサイトエンドポイントで利用可能になります。 お住まいのリージョンで使用されているドメインを見つけるには、[Amazon Simple Storage Service Website Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_website_region_endpoints) を参照してください。
 
 > By default objects in an S3 bucket are available via URLs with the structure `http://<Regional-S3-prefix>.amazonaws.com/<bucket-name>/<object-key>`. In order to serve assets from the root URL (e.g. /index.html), you'll need to enable website hosting on the bucket. For more details about using this feature, please see the [Website Endpoints](https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteEndpoints.html) documentation. This will make your objects available at the AWS Region-specific website endpoint of the bucket. Please refer to the [Amazon Simple Storage Service Website Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_website_region_endpoints) to find the domain used for your region.
 
-Webサイトにカスタムドメインを使用することもできます。 たとえば、 http://www.wildrydes.com はS3でホストされています。 このワークショップではカスタムドメインの設定については説明しませんが、詳細な手順は当社の [ドキュメント](http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html) にあります。
+Webサイトにカスタムドメインを使用することもできます。 たとえば、 http://www.wildrydes.com は S3 でホストされています。 このワークショップではカスタムドメインの設定については説明しませんが、詳細な手順は当社の [ドキュメント](http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html) にあります。
 
 > You can also use a custom domain for your website. For example http://www.wildrydes.com is hosted on S3. Setting up a custom domain is not covered in this workshop, but you can find detailed instructions in our [documentation](http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html).
 
@@ -299,7 +299,7 @@ Webサイトにカスタムドメインを使用することもできます。 �
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
-1. S3コンソールのバケット詳細ページから、**プロパティ** タブを選択してください。
+1. S3 コンソールのバケット詳細ページから、**プロパティ** タブを選択してください。
 
 1. **Static website hosting** カードを選択します。
 
@@ -330,11 +330,11 @@ Webサイトにカスタムドメインを使用することもできます。 �
 
 ## Implementation Validation
 
-これらの実装手順を完了すると、S3バケットのWebサイトエンドポイントURLにアクセスして静的Webサイトにアクセスできるようになります。
+これらの実装手順を完了すると、S3 バケットのWebサイトエンドポイントURLにアクセスして静的Webサイトにアクセスできるようになります。
 
 > After completing these implementation steps you should be able to access your static website by visiting the website endpoint URL for your S3 bucket.
 
-あなたが選んだブラウザであなたのウェブサイトのベースURL（これはあなたがセクション4で書き留めたURLです）にアクセスしてください。 Wild Rydesのホームページが表示されるはずです。 ベースURLを探す必要がある場合は、S3コンソールにアクセスしてバケットを選択し、プロパティタブの Static website hosting カードをクリックしてください。
+あなたが選んだブラウザであなたのウェブサイトのベースURL（これはあなたがセクション4で書き留めたURLです）にアクセスしてください。 Wild Rydes のホームページが表示されるはずです。 ベースURLを探す必要がある場合は、S3 コンソールにアクセスしてバケットを選択し、プロパティタブの Static website hosting カードをクリックしてください。
 
 > Visit your website's base URL (this is the URL you noted in section 4) in the browser of your choice. You should see the Wild Rydes home page displayed. If you need to lookup the base URL, visit the S3 console, select your bucket and then click the **Static Web Hosting** card on the **Properties** tab.
 
